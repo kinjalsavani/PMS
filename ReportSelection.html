@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R Wadiwala</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+    <link rel="Stylesheet" href="style/MyRedTheme.css" />
+    <script src="scripts/Utility.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var blnResponse = false;
+        var Response;
+
+        $(document).ready(function () {
+            if ((localStorage.R_Mobileapp_UserName != 'null') && (localStorage.R_Mobileapp_UserName != null) && (localStorage.R_Mobileapp_ReportClient != 'null') && (localStorage.R_Mobileapp_ReportScheme != 'null') && (localStorage.R_Mobileapp_ReportClient != null) && (localStorage.R_Mobileapp_ReportScheme != null)) {
+                if (sessionStorage.R_Mobileapp_LastPageBrowsed != "ReportOptions.html") {
+                    window.location = "ReportOptions.html";
+                }
+            }
+            $("#dvProcessing").show();
+
+            var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=family&Username=" + localStorage.R_Mobileapp_UserName;
+          
+
+            $.getJSON(surl, function (rtndata) {
+                Response = rtndata;
+               // blnResponse = true;
+                PopulateClientScheme(rtndata);
+            });
+
+
+           var t1 = setTimeout(function () { PopulateClientScheme(); }, 2000);
+
+            sessionStorage.R_Mobileapp_LastPageBrowsed = "ReportSelection.html";
+        });
+
+
+        function PopulateClientScheme() 
+        {
+            var clientname;              
+                $("#SelectClient").children('option').remove();                
+                $.each(Response, function (key, val) {
+                    $.each(val.Client, function () {
+                        if (this.TrdCmNm != clientname) {
+                            $("#SelectClient").append("<option value=\"" + this.clientcode + "\">" + this.TrdCmNm + "</option>")
+                        }
+                        clientname = this.TrdCmNm;
+                    });
+                });
+                $("#SelectClient").selectmenu('refresh', true);
+                PopulateSchemeCode(Response);
+                $("#dvProcessing").hide();            
+        }
+        function PopulateSchemeCode() 
+        {
+            var client_code = $("#SelectClient").val();
+            var client_Name = $("#SelectClient option:selected").text();
+             
+            var schemeNm = "";
+            $("#SelectScheme").children('option').remove(); 
+            $.each(Response, function (key, val) {
+                $.each(val.Client, function () {
+                    if (this.TrdCmNm == client_Name || client_code == 'Combined') {                       
+                        $.each(this.Scheme, function () {
+                            schemeNm = this.SchemeName.replace(/R. Wadiwala/g, "");
+                            $("#SelectScheme").append("<option value=\"" + this.Schemecode + "\">" + schemeNm + "</option>")
+                        });
+                    }
+
+                });
+            });
+
+            $("#SelectScheme").selectmenu('refresh', true);
+        }
+
+        function submitMe() {
+
+            localStorage.R_Mobileapp_ReportClient = $("#SelectClient").val();
+            localStorage.R_Mobileapp_SchemeName = $("#SelectScheme option:selected").text();            
+            localStorage.R_Mobileapp_ReportScheme = $("#SelectScheme").val();
+            localStorage.R_Mobileapp_ReportClient_Name = $("#SelectClient option:selected").text();
+            localStorage.R_Mobileapp_GraphScheme = localStorage.R_Mobileapp_ReportScheme;
+            localStorage.R_Mobileapp_GraphClient = localStorage.R_Mobileapp_ReportClient;
+        }
+
+    </script>
+    <style type="text/css">
+        .ui-page
+        {
+            background: transparent url(style/images/bg_hor.png);
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="dvProcessing"></div>
+    <div data-role="page" data-theme="g" >
+        <div data-role="header" data-position="fixed" >
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="width: 10%">
+                    </td>
+                    <td style="height: 42px; text-align: center; width: 80%">
+                        R. Wadiwala PMS
+                    </td>
+                    <td style="width: 10%; text-align: right;padding-right:10px">
+                        <a href="#" onclick="Logout();">
+                            <img src="style/images/logout.jpg" height="20px" width="20px" alt="Logout" />
+                        </a>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </div>
+        <div data-theme="c" data-role="header"  data-position="fixed" >
+            <table style="padding-left: 2px; padding-right: 2px; font-weight: normal" width="100%"
+                height="40px" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="text-align: center">
+                        Select Client & Scheme
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div data-role="content">
+            <form id="frmReport" action="ReportOptions.html" method="post">
+
+                <div id="dvClient" data-role="fieldcontain">
+                    <label for="SelectClient">
+                        Client:</label>
+                    <select data-theme="a"  name="SelectClient" id="SelectClient"  data-mini="true" data-native-menu="false"   onchange="PopulateSchemeCode()" >
+                        <!--<option value="client1">Client 1</option>
+                        <option value="client2">Client 2</option>
+                        <option value="client3">Client 3</option>-->
+                    </select>
+                </div>
+
+                <div data-role="fieldcontain">
+                    <label for="SelectScheme">
+                        Scheme:</label>
+                    <select data-theme="a"  name="SelectScheme" id="SelectScheme" data-native-menu="false"  data-mini="true"  >
+                    </select>
+                </div>
+
+                <div align="right">
+                    <input data-theme="a" id="Submit1" type="button" value="Select" data-icon="arrow-r" data-inline="true"
+                        onclick="javascript:{submitMe();document.forms[0].action='ReportOptions.html';document.forms[0].submit();};" />
+                </div>
+
+            </form>
+        </div>
+        <div data-theme="a" id="footerwrapper" data-role="footer" data-position="fixed" style="height: 35px;text-align:center"  >
+        </div>
+    </div>
+</body>
+</html>

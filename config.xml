@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "differenz.rwd"
+        version   = "1.0.0">
+    <name>R. Wadiwala PMS</name>
+
+    <description>
+     R.Wadiwala Portfolio Management Services (PMS) App is an app for our registered PMS clients. This app will help you track your portfolio anywhere, anytime with the help of different reports updated at the end of the day. 
+    </description>
+
+    <author href="http://differenz.co.in" email="team@differenz.co.in">
+        Differenz Team
+    </author>
+    <preference name="orientation" value="portrait" />
+    <feature name="http://api.phonegap.com/1.0/device" />
+    <preference name="phonegap-version" value="2.1.0" />
+    <preference name="target-device"    value="universal" />
+    <preference name="fullscreen"       value="false" />
+    <icon src="icon.png" />
+    <icon src="icon-57.png"            gap:platform="ios"        width="57" height="57" />
+    <icon src="icon-72.png"            gap:platform="ios"        width="72" height="72" />
+    <icon src="icon-57-2x.png"         gap:platform="ios"        width="114" height="114" />
+    <icon src="icon-72-2x.png"         gap:platform="ios"        width="144" height="144" />
+    <gap:splash src="screen-iphone-portrait.png"    gap:platform="ios"     width="320" height="480" />
+    <gap:splash src="screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
+    <gap:splash src="screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
+    <gap:splash src="screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
+    
+</widget>

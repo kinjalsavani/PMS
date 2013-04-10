@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R Wadiwala</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="Stylesheet" href="style/MyRedTheme.css" />
+    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+    <script src="scripts/Utility.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var blnResponse = false;
+        var Response;
+
+        sessionStorage.R_Mobileapp_LastPageBrowsed = "RptPerformanceAnalysis.html";
+
+        $(document).ready(function () {
+            $("#dvProcessing").show();
+            $("#lblClientInfo").text(localStorage.R_Mobileapp_ReportClient_Name);
+            $("#lblSchemeInfo").text(localStorage.R_Mobileapp_SchemeName);
+
+            var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=Performance&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + localStorage.R_Mobileapp_ReportClient + "&SchemeCode=" + localStorage.R_Mobileapp_ReportScheme;          
+            $.getJSON(surl, function (rtndata) {
+                Response = rtndata;
+                PopulateReport();
+            });
+            // var t1 = setTimeout(function () { PopulateReport(); }, 2000);
+            var num;
+            function PopulateReport() {
+                var strHTML = "";
+                strHTML += "<tr>";
+                strHTML += "<td colspan=\"2\" class=\"firstrow\" >";
+                strHTML += "<b>Performance Analysis</b>";
+                strHTML += "</td>";
+                strHTML += "</tr>";
+                strHTML += "<tr style=\"background-color:#f6eee4\">";
+                strHTML += "<td style=\" border-top: solid 1px #D2D8E4;border-left:solid 1px #D2D8E4;border-right:solid 1px #D2D8E4;text-align:left;height:35px;\" class=\"txtReportFont\">";
+                strHTML += "</td>";
+                strHTML += "<td style=\" border-top: solid 1px #D2D8E4;border-right:solid 1px #D2D8E4;text-align:center;height:35px;\" class=\"txtReportFont\" nowrap=\"nowrap\">";
+                strHTML += "(Absolute)<br>Since Inception";
+                strHTML += "</td>";
+                strHTML += "</tr>";
+                $.each(Response, function (key, val) {
+                    for (var obj in val.Performance) {
+                        if (val.Performance.hasOwnProperty(obj)) {
+                            for (var prop in val.Performance[obj]) {
+                                if (val.Performance[obj].hasOwnProperty(prop)) {
+                                    var num = parseFloat(val.Performance[obj][prop]);
+                                    strHTML += "<tr style=\"background-color:#EFEFF9\">";
+                                    strHTML += "<td style=\"border-top: solid 1px #D2D8E4;border-left:solid 1px #D2D8E4;border-right:solid 1px #D2D8E4;border-bottom:solid 1px #D2D8E4;text-align:center;height:35px;\" nowrap=\"nowrap\" class=\"txtReportFont\">";
+                                    strHTML += prop;
+                                    strHTML += "</td>";
+                                    strHTML += "<td style=\"border-top: solid 1px #D2D8E4;border-right:solid 1px #D2D8E4;border-bottom:solid 1px #D2D8E4; text-align:center\" class=\"txtReportFont\">";
+                                    strHTML += "<label id=\"lblBSEIndex\">" + num.toFixed(2) + " " + "%" + "</label>";
+                                    strHTML += "</td>";
+                                    strHTML += "</tr>";
+                                }
+                            }
+                        }
+                    }
+                    $("#divdynamic").append(strHTML);
+                });
+                $("#dvProcessing").hide();
+
+            }
+        });
+    </script>
+    <style type="text/css">
+        .ui-page
+        {
+            background: transparent url(style/images/bg_hor.png);
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="dvProcessing">
+    </div>
+    <div data-role="page" data-theme="a">
+        <form id="frmRptSummary">
+        <div data-theme="a" data-role="header" data-position="fixed">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="width: 10%; text-align: left; padding-left: 10px">
+                        <a href="#" onclick="Home();">
+                            <img src="style/images/house.png" height="20px" width="20px" alt="Home" />
+                        </a>
+                    </td>
+                    <td style="height: 42px; text-align: center; width: 80%">
+                        R. Wadiwala PMS
+                    </td>
+                    <td style="width: 10%; text-align: right; padding-right: 10px">
+                        <a href="#" onclick="Logout();">
+                            <img src="style/images/logout.jpg" height="20px" width="20px" alt="Logout" />
+                        </a>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div data-role="header" data-theme="b" data-position="fixed" style="background-color: Maroon">
+            <table style="padding-left: 2px; padding-right: 2px; padding-top: 2px; vertical-align: middle;
+                font-weight: normal" width="100%" height="20px" cellpadding="0" cellspacing="0"
+                border="0">
+                <tr>
+                    <td style="text-align: center">
+                        <label id="lblClientInfo">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <label id="lblSchemeInfo" style="font-size:14px;">
+                        </label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table id="tblSummaryReport" width="100%" cellpadding="5" cellspacing="0" border="0">
+            <tr>
+                <td colspan="4" style="height: 10px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="center">
+                    <table width="95%" cellpadding="5" cellspacing="0" border="0" id="divdynamic">
+                        <!--tr style="background-color:#EFEFF9">
+                            <td style="border-top: solid 1px #D2D8E4;border-left:solid 1px #D2D8E4;border-right:solid 1px #D2D8E4;text-align:center;height:35px;" nowrap="nowrap" class="txtReportFont">
+                                Portfolio
+                            </td>
+                            <td style="border-top: solid 1px #D2D8E4;border-right:solid 1px #D2D8E4; text-align:center" class="txtReportFont">
+                                <label id="lblPortfolio"></label>  
+                            </td>
+                        </tr>-->
+                    </table>
+                </td>
+            </tr>
+        </table>
+        </form>
+        <div data-theme="a" id="footerwrapper" data-role="footer" data-position="fixed" style="height: 35px;
+            text-align: center">
+            <div style="height: 10px">
+            </div>
+            <div>
+                <span class="spn" onclick="ChangeClient();">Change Client</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

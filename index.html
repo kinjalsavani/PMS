@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R Wadiwala</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+    <link rel="Stylesheet" href="style/MyRedTheme.css" />
+    <script language="javascript" type="text/javascript">
+        var blnResponse = false;
+        var Response;
+        var TimeoutFunction;
+        $(document).ready(function () {
+            if ((localStorage.R_Mobileapp_UserName != 'null') && (localStorage.R_Mobileapp_UserName != null)) {
+                if (sessionStorage.R_Mobileapp_LastPageBrowsed != "ReportSelection.html") {
+                    window.location = "ReportSelection.html";
+                }
+            }
+			$("#dvProcessing").hide();
+            $("#dvMessage").hide();
+            sessionStorage.R_Mobileapp_LastPageBrowsed = "index.html";
+            
+        });
+		function forgotpage()
+		{
+			window.location="ForgotPassword.html";
+		}
+        function submitMe() {        
+            $("#dvProcessing").show();
+            if($('input[name="chkPassword"]:checked').length==1)
+            {
+                localStorage.R_Mobileapp_UserName = $("#txtusername").val();
+            }
+            //Validate User
+            var userName = $("#txtusername").val();
+            var password = $("#password").val();
+            var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=login&Username=" + userName + "&password=" + password;
+            
+            blnResponse = false;
+            Response="";
+
+            $.getJSON(surl, function (rtndata) {                
+                Response = rtndata.success
+                blnResponse = true;
+                ValidateUser(rtndata);
+            })
+
+           // var t1 = setTimeout(function () { ValidateUser(); }, 2000);
+        }
+
+        function ValidateUser() {
+            if (blnResponse) {
+                if (Response == "true") {
+                    document.forms[0].location = "ReportSelection.html";
+                    document.forms[0].submit();
+                }
+                else {
+                    $("#dvMessage").show();
+                    $("#dvProcessing").hide();
+                }
+            }
+            else {
+                blnResponse = false;
+                $("dvMessage").show();
+                $("#dvProcessing").hide();
+            }
+        }
+    
+    </script>
+    <style type="text/css">
+        .ui-page
+        {
+            background: transparent url(style/images/bg_hor.png);
+          
+        }
+        
+ .ui-checkbox .ui-btn-icon-left .ui-btn-inner, .ui-radio .ui-btn-icon-left .ui-btn-inner {
+   background-color:#F6F2EF; 
+   padding-left:45px;
+   
+}​ 
+        
+    </style>
+</head>
+<body style="background-color: White;">
+    <div class="modal" id="dvProcessing"></div>​
+    <div data-role="page" data-theme="a" >
+        <div data-theme="a" data-role="header" data-position="fixed" >
+            <table width="100%" cellpaledding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="height:42px;text-align:center;width:80%" >R. Wadiwala PMS</td> 
+                </tr>
+            </table>
+        </div>
+        
+        <div data-role="content"  >
+            <div data-role="content"  >
+                <form id="frmReport" action="ReportSelection.html" method="post" style="height:360px !important;" >
+                    <div id="dvMessage" style="text-align:center;color:Red;height:10px;"><b>Invalid User UserName/Password</b></div>
+                    <div data-role="fieldcontain" style="height:50px;">
+                        <label for="txtusername" style >
+                            Username:</label>
+                        <input type="text" name="txtusername" id="txtusername" value=""  />
+                    </div>
+                    <div data-role="fieldcontain" style="height:50px;">
+                        <label for="password">
+                            Password:</label>
+                        <input type="password" name="txtpassword" id="password" value=""  />
+                    </div>
+                    <div data-role="fieldcontain" style="height:35px;">
+                        <label for="chkPassword">
+                            Save Password</label>
+                        <input name="chkPassword" id="chkPassword" type="checkbox" checked  data-mini="true" data-theme="c"/>
+                    </div>
+					<a href="#" name="ForgotPwd" id="ForgotPwd" onclick="forgotpage()" style="color:#000000;">Forgot your Password!</a>
+					
+                    <div align="right">
+                        <input id="Submit1" type="button" value="Login" data-icon="arrow-r" data-inline="true" onclick="javascript:{submitMe();};" />
+                    </div>
+                
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R Wadiwala</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="Stylesheet" href="style/MyRedTheme.css" />
+    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+    <script src="scripts/Utility.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        
+        var blnResponse = false;
+        var Response;
+        sessionStorage.R_Mobileapp_LastPageBrowsed = "RptSummary.html";
+
+        $(document).ready(function () {
+            $("#dvProcessing").show();
+            $("#lblClientInfo").text(localStorage.R_Mobileapp_ReportClient_Name);
+            $("#lblSchemeInfo").text(localStorage.R_Mobileapp_SchemeName);
+
+            var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=Summary&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + localStorage.R_Mobileapp_ReportClient + "&SchemeCode=" + localStorage.R_Mobileapp_ReportScheme;
+                    
+            $.getJSON(surl, function (rtndata) {
+                Response = rtndata;
+                PopulateReport();
+            });
+
+        });
+
+        function PopulateReport() 
+        {             
+                $.each(Response, function (key, val) {
+                    $.each(val.Summary, function () {
+                        $("#lblTotalContribution").text(parseFloat(this.TotalContribution).toFixed(2));
+                        $("#lblTotalWithdrawal").text(parseFloat(this.TotalWithDrawal).toFixed(2));
+                        $("#lblNetContribution").text(parseFloat(this.NetContribution).toFixed(2));
+                        $("#lblPortfolioValue").text(parseFloat(this.PortfolioValue).toFixed(2));
+                        $("#lblGain_Loss").text(parseFloat(this['Gain-Loss']).toFixed(2));
+                    });
+                });
+                $("#dvProcessing").hide();                 
+        }        
+    </script>
+    <style type="text/css">
+        .ui-page
+        {
+            background: transparent url(style/images/bg_hor.png);
+        }
+    </style>
+  
+</head>
+<body>
+    <div class="modal" id="dvProcessing"></div>
+    <div data-role="page" data-theme="a">
+        <form id="frmRptSummary">
+        <div data-theme="a" data-role="header" data-position="fixed">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="width: 10%;text-align:left;padding-left:10px">
+                        <a href="#" onclick="Home();">
+                            <img src="style/images/house.png" height="20px" width="20px" alt="Home" />
+                        </a>
+                    </td>
+                    <td style="height: 42px; text-align: center; width: 80%">
+                        R. Wadiwala PMS
+                    </td>
+                    <td style="width: 10%; text-align: right;padding-right:10px">
+                        <a href="#" onclick="Logout();">
+                            <img src="style/images/logout.jpg" height="20px" width="20px" alt="Logout" />
+                        </a>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </div>
+        <div  data-role="header" data-theme="b" data-position="fixed" style="background-color:Maroon">
+           <table style="padding-left:2px;padding-right:2px;padding-top:2px;vertical-align:middle; font-weight:normal" width="100%" height="20px" cellpadding="0" cellspacing="0" border="0" >
+            <tr>
+                <td style="text-align:center" >
+                    <label id="lblClientInfo"></label>  
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center" >
+                    <label id="lblSchemeInfo" style="font-size:14px;"></label>  
+                </td>
+            </tr>
+        </table>
+        </div>
+
+        <table id="tblSummaryReport" width="100%" cellpadding="5" cellspacing="0" border="0" >
+            <tr>
+                <td colspan="4" style="height:10px"></td>
+            </tr>
+            <tr>
+                <td colspan="4" align="center">
+                    <table width="95%" cellpadding="5" cellspacing="0" border="0" >
+                        <tr >
+                            <td colspan="3" class="firstrow" >
+                                <b>Summary Report Data</b>
+                            </td>
+                        </tr>
+                        <tr style="background-color:#EFEFF9">
+                            <td style="width: 40%; border-top: solid 1px #D2D8E4;text-align:left;height:35px;" nowrap="nowrap" class="txtReportFont">
+                                Total Contribution
+                            </td>
+                            <td style="border-top: solid 1px #D2D8E4; text-align:right" class="txtReportFont">
+                                <b><label id="lblTotalContribution"></label></b>
+                            </td>
+                        </tr>
+
+                        <tr style="background-color:#EFEFF9">
+                            <td style=" border-top: solid 1px #D2D8E4;text-align:left;height:35px;" class="txtReportFont">
+                                Total Withdrawal
+                            </td>
+                            <td style="border-top: solid 1px #D2D8E4; text-align:right" class="txtReportFont">
+                                <b><label id="lblTotalWithdrawal"></label></b>
+                            </td>
+                        </tr>
+                        <tr style="background-color:#EFEFF9">
+                            <td style="border-top: solid 1px #D2D8E4; text-align:left;height:35px;" class="txtReportFont">
+                                Net Contribution
+                            </td>
+                            <td style="border-top: solid 1px #D2D8E4; text-align:right" class="txtReportFont">
+                                <b><label id="lblNetContribution"></label></b>
+                            </td>
+                        </tr>
+
+                        <tr style="background-color:#EFEFF9">
+                            <td style="border-top: solid 1px #D2D8E4; text-align:left;height:35px;" class="txtReportFont">
+                                Portfolio Value
+                            </td>
+                            <td style="border-top: solid 1px #D2D8E4; text-align:right" class="txtReportFont">
+                                <b><label id="lblPortfolioValue"></label></b>
+                            </td>
+                        </tr>
+
+                        <tr style="background-color:#EFEFF9">
+                            <td style="border-top: solid 1px #D2D8E4; border-bottom: solid 1px D2D8E4;text-align:left;height:35px;"  class="txtReportFont">
+                                Gain/Loss
+                            </td>
+                            <td style="border-top: solid 1px #D2D8E4; border-bottom: solid 1px D2D8E4;text-align:right" class="txtReportFont">
+                                <b><label id="lblGain_Loss"></label></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-size:smaller"><b>PS.</b> Amount is in INR.</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        </form>
+        <div data-theme="a" id="footerwrapper" data-role="footer" data-position="fixed" style="height: 35px;text-align:center"  >
+            <div style="height:10px"></div>
+            <div>
+                <span class="spn" onclick="ChangeClient();">Change Client</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R Wadiwala</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="Stylesheet" href="style/MyRedTheme.css" />
+    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+    <script src="scripts/Utility.js" type="text/javascript"></script>
+    <script src="scripts/jquery.jqplot.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="style/jquery.jqplot.min.css" />
+    <script src="scripts/jqplot.pieRenderer.min.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var blnResponse = false;
+        var Response;
+        var strClientCode;
+        sessionStorage.R_Mobileapp_LastPageBrowsed = "RptAssetAllocation.html";
+        $(document).ready(function () {
+
+            $("#dvDisplay").hide();
+            $("#dvProcessing").show();
+            LoadSchemeandClient();
+
+            $("#dvProcessing").show();
+            strClientCode = localStorage.R_Mobileapp_ReportClient;
+
+            if (strClientCode == 'Combined') {
+                strClientCode = strClientCode + "&Iscombine=true";
+            }
+            else {
+                strClientCode = strClientCode + "&Iscombine=false";
+            }
+
+            var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=NewGraphReport&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + strClientCode + "&SchemeCode=" + localStorage.R_Mobileapp_ReportScheme + "&clncode=" + localStorage.R_Mobileapp_GraphClient + "&schcode=" + localStorage.R_Mobileapp_GraphScheme;
+
+        
+            //old surl
+            //var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=GraphReport&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + strClientCode + "&SchemeCode=" + localStorage.R_Mobileapp_ReportScheme;
+
+            // var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=GraphReports&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + strClientCode + "&SchemeCode=" + localStorage.R_Mobileapp_ReportScheme;
+
+            $.getJSON(surl, function (rtndata) {
+                Response = rtndata;
+                blnResponse = true;
+            });
+
+            $('#container').bind('jqplotDataClick',
+                    function (ev, seriesIndex, pointIndex, data) {
+                        var strTemp = data.toString().split(',');
+                        strTemp[0] = strTemp[0].replace(/&/, '--');
+                        sessionStorage.setItem("GraphSelection", strTemp[0]);
+
+                        document.forms[0].action = "RptEquity.html";
+                        document.forms[0].submit();
+
+                    });
+        });
+
+            var t1 = setTimeout(function () { LoadSchemeandClient(); }, 2000);
+
+
+        function LoadSchemeandClient() {
+            $("#dvProcessing").show();         
+            var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=family&Username=" + localStorage.R_Mobileapp_UserName;
+           // alert(surl);
+            $.getJSON(surl, function (rtndata) {
+                Response = rtndata;                 
+                blnResponse = true;
+                PopulateClientScheme( );
+            });
+        }
+
+
+        function PopulateClientScheme() {      
+            var clientname;
+            $("#SelectClient").children('option').remove();
+            $.each(Response, function (key, val) {
+                $.each(val.Client, function () {
+                    if (this.TrdCmNm != clientname) {
+                        $("#SelectClient").append("<option value=\"" + this.clientcode + "\">" + this.TrdCmNm + "</option>")
+                    }
+                    clientname = this.TrdCmNm;
+                });
+            });
+            $("#SelectClient").append("<option value=\"" + "Combined" + "\">" + "Combined" + "</option>")
+            $("#SelectClient").selectmenu('refresh', true);
+
+            if (localStorage.R_Mobileapp_GraphClient == null || localStorage.R_Mobileapp_GraphClient == '') {
+                $("#SelectClient option[value='" + localStorage.R_Mobileapp_ReportClient + "']").attr("selected", "selected");
+                $("#SelectClient").val(localStorage.R_Mobileapp_ReportClient);
+            }
+            else {
+                $("#SelectClient option[value='" + localStorage.R_Mobileapp_GraphClient + "']").attr("selected", "selected");
+                $("#SelectClient").val(localStorage.R_Mobileapp_GraphClient);
+            }
+
+
+            $("#SelectClient").selectmenu("refresh", true);
+
+            PopulateSchemeCode();
+            $("#dvProcessing").hide();
+        }
+
+        function PopulateSchemeCode() {
+             
+            var client_code = $("#SelectClient").val();
+            var client_Name = $("#SelectClient option:selected").text();
+            var schemeNm = "";
+            var count = 0;
+            $("#SelectScheme").children('option').remove();
+          //  alert(Response);
+        
+            $.each(Response, function (key, val) {
+               // alert(val);
+                $.each(val.Client, function () {
+                  //  alert("2");
+                    if (this.TrdCmNm == client_Name || client_code == 'Combined') {
+                        $.each(this.Scheme, function () {
+                         //   alert("3");
+                            count = count + 1;
+                            schemeNm = this.SchemeName.replace(/R. Wadiwala/g, "");
+                            if ($("#SelectScheme").find("option[value='" + this.Schemecode + "']").length == 0)
+                            { $("#SelectScheme").append("<option value=\"" + this.Schemecode + "\">" + schemeNm + "</option>") }
+                        });
+                    }
+                });
+            });
+            if (count != 1 && $("#SelectClient").val() == "Combined") {
+                $("#SelectScheme").append("<option selected=\"true\" value=\"" + "Combined" + "\">" + "Combined" + "</option>")
+
+                if (localStorage.R_Mobileapp_GraphScheme == null || localStorage.R_Mobileapp_GraphScheme == '') {
+                    $("#SelectScheme option[value='" + localStorage.R_Mobileapp_ReportClient + "']").attr("selected", "selected");
+                    $("#SelectScheme").val(localStorage.R_Mobileapp_ReportClient);
+                }
+                else {
+                    $("#SelectScheme option[value='" + localStorage.R_Mobileapp_GraphScheme + "']").attr("selected", "selected");
+                    $("#SelectScheme").val(localStorage.R_Mobileapp_GraphScheme);
+                }
+
+            }
+            if (count != 1 && $("#SelectClient").val() != "Combined") {
+                $("#SelectScheme").append("<option   value=\"" + "Combined" + "\">" + "Combined" + "</option>")
+
+                                                                                                                                                   
+                if (localStorage.R_Mobileapp_GraphScheme == null || localStorage.R_Mobileapp_GraphScheme == '') {
+                    $("#SelectScheme option[value='" + localStorage.R_Mobileapp_ReportClient + "']").attr("selected", "selected");
+                    $("#SelectScheme").val(localStorage.R_Mobileapp_ReportClient);
+                }
+                else {
+                    $("#SelectScheme option[value='" + localStorage.R_Mobileapp_GraphScheme + "']").attr("selected", "selected");
+                    $("#SelectScheme").val(localStorage.R_Mobileapp_GraphScheme);
+                }
+ 
+
+            }
+            $("#SelectScheme").selectmenu('refresh', true);
+           
+        }
+
+        function PopulateChart() {
+
+            // alert(localStorage.R_Mobileapp_ReportClient);
+
+            localStorage.R_Mobileapp_GraphClient = $("#SelectClient").val();
+            localStorage.R_Mobileapp_GraphScheme = $("#SelectScheme").val();
+
+            localStorage.R_Mobileapp_GraphClientName = $("#SelectClient option:selected").text()
+            localStorage.R_Mobileapp_SchemeNameName = $("#SelectScheme option:selected").text()
+
+
+            if ($("#SelectClient").val() != "Combined") {
+                localStorage.R_Mobileapp_ReportClient = localStorage.R_Mobileapp_GraphClient;
+            }
+            if ($("#SelectScheme").val() != "Combined") {
+                localStorage.R_Mobileapp_ReportScheme = localStorage.R_Mobileapp_GraphScheme;
+            }
+
+
+            $("#SelectScheme").val();
+            $("#dvProcessing").show();
+            blnResponse = 0;
+//            Schemecode = $("#SelectScheme option:selected").val();
+//            localStorage.R_Mobileapp_ReportScheme = Schemecode;
+            var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=NewGraphReport&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + strClientCode + "&SchemeCode=" + localStorage.R_Mobileapp_GraphScheme + "&clncode=" + localStorage.R_Mobileapp_GraphClient + "&schcode=" + localStorage.R_Mobileapp_GraphScheme;
+
+            //old surl
+            //var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=GraphReport&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + strClientCode + "&SchemeCode=" + localStorage.R_Mobileapp_ReportScheme;
+
+            // var surl = "http://123.201.85.74:5088/newdynamicboaddins_new/RwMobile/ReceiveLogin.aspx?callback=?&action=GraphReports&Username=" + localStorage.R_Mobileapp_UserName + "&ClientCode=" + strClientCode + "&SchemeCode=" + localStorage.R_Mobileapp_ReportScheme;
+
+            $.getJSON(surl, function (rtndata) {
+                Response = rtndata;
+                result = true;
+                $("#dvSearch").hide();
+                $("#dvDisplay").show();
+
+
+                $("#lblClientInfo").text(localStorage.R_Mobileapp_GraphClientName);
+                $("#lblSchemeInfo").text(localStorage.R_Mobileapp_SchemeNameName);
+
+                PopulateReport();
+            });
+
+
+
+
+        }
+        function PopulateReport() {
+            var data = [];
+
+            $.each(Response, function (key, val) {
+
+                cnt = 0;
+
+                $.each(val.GraphReport, function (key, val) {
+                    $.each(this, function (key, val) {
+
+                        data[cnt] = [key, parseFloat(val)];
+                        cnt = cnt + 1;
+                    });
+                });
+            });
+
+            //var data = [['DIRECT EQUITY', 97.56], ['CASH/CASH EQUIVALENT', 1,61], ['Indirect Debt', .85]];
+
+            // data[0] = ['Equity', 10];
+            // data[1] = ['Debt', 90];
+            // alert(data[0]);
+
+            var plot1 = jQuery.jqplot('container', [data],
+                {
+                    seriesDefaults: {
+                        // Make this a pie chart.
+                        renderer: jQuery.jqplot.PieRenderer,
+                        rendererOptions: {
+                            // Put data labels on the pie slices.
+                            // By default, labels show the percentage of the slice.
+                            showDataLabels: true,
+                            shadowDepth: 0,
+                            shadowOffset: 0,
+                            shadowAlpha: 0
+                        }
+                    },
+                    legend: { show: true, location: 's' },
+                    grid: { background: '#E5E5E5', borderColor: '#E5E5E5' }
+                }
+                );
+            $("#dvProcessing").hide();
+            var x = document.getElementById("SelectScheme");
+            x.disabled = true;
+
+        }
+   
+    </script>
+    <style type="text/css">
+        .ui-page
+        {
+            background: transparent url(style/images/bg_hor.png);
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="dvProcessing">
+    </div>
+    <div data-role="page" data-theme="b">
+        <form id="frmAssetAllocation" method="post">
+        <div data-theme="a" data-role="header" data-position="fixed">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="width: 10%; text-align: left; padding-left: 10px">
+                        <a href="#" onclick="Home();">
+                            <img src="style/images/house.png" height="20px" width="20px" alt="Home" />
+                        </a>
+                    </td>
+                    <td style="height: 42px; text-align: center; width: 80%">
+                        R. Wadiwala PMS
+                    </td>
+                    <td style="width: 10%; text-align: right; padding-right: 10px">
+                        <a href="#" onclick="Logout();">
+                            <img src="style/images/logout.jpg" height="20px" width="20px" alt="Logout" />
+                        </a>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--  <div data-role="header" data-theme="b" data-position="fixed" style="background-color: Maroon"> -->
+        <div data-role="header" data-theme="b" style="background-color: Maroon">
+            <!--Add By sunil Start-->
+            <div id="dvSearch">
+                <div id="dvClient" data-role="fieldcontain" style="border: none !important;">
+                    <div style="float: left; width: 25%; margin-left: 5px;">
+                        <label for="SelectClient">
+                            Client:</label>
+                    </div>
+                    <div style="text-align: center;">
+                        <select data-theme="a" name="SelectClient" id="SelectClient" data-mini="true" data-native-menu="true"
+                            onchange="PopulateSchemeCode()">
+                        </select>
+                    </div>
+                </div>
+                <div data-role="fieldcontain" style="border: none !important;">
+                    <div style="float: left; width: 25%; margin-left: 5px;">
+                        <label for="SelectScheme">
+                            Scheme:</label></div>
+                    <div style="text-align: center;">
+                        <select data-theme="a" name="SelectScheme" id="SelectScheme" data-native-menu="true"
+                            data-mini="true">
+                        </select>
+                    </div>
+                </div>
+                <div align="right" style="margin-right: 10px;">
+                    <input id="Submit1" type="button" value="Generate Reports" data-icon="arrow-r" data-inline="true"
+                        onclick="PopulateChart();" />
+                </div>
+            </div>
+            <!--Add By sunil End-->
+            <div id="dvDisplay" data-role="header" data-theme="b" data-position="fixed" style="background-color: Maroon">
+                <table style="padding-left: 2px; padding-right: 2px; padding-top: 2px; vertical-align: middle;
+                    font-weight: normal" width="100%" height="20px" cellpadding="0" cellspacing="0"
+                    border="0">
+                    <tr>
+                        <td style="text-align: center">
+                            <label id="lblClientInfo">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center">
+                            <label id="lblSchemeInfo" style="font-size: 14px;">
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <form id="frmAssetAllocation">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td colspan="4" style="height: 10px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <center>
+                        <div style="margin: 0 1em; width: auto;">
+                            <div id="container" style="width: 250px; height: 300px; margin: 0 auto;">
+                            </div>
+                        </div>
+                    </center>
+                </td>
+            </tr>
+        </table>
+        </form>
+        <div data-theme="a" id="footerwrapper" data-role="footer" data-position="fixed" style="height: 35px;
+            text-align: center; position: fixed;">
+            <div style="height: 10px">
+            </div>
+            <div>
+                <span class="spn" onclick="ChangeClientS();">Change Client</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

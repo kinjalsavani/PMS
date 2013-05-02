@@ -3,10 +3,10 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "differenz.stoller"
         version   = "1.0.0">
-    <name>Stoller</name>
+    <name>Crimson Papalce</name>
 
     <description>
-  Stoller Solution is a comprehensive farmers guide for access to information about the right product to use during certain conditions displayed by crops. Created by experts at Stoller enterprises limited, Canada, it is the first app that uses technology to bring agricultural solutions and recommendations to the end users fingertips. Stoller solutions consist of four solutions, which are: Crop stress, Regular recommendations, high fertility program and understanding hormones.  By inputting the different values of a related crop, you can get the product required to help you solve the issue displayed by crop and an explanation why that product is the best option.
+  Crimson Papalce
     </description>
 
     <author href="http://differenz.co.in" email="team@differenz.co.in">
@@ -26,5 +26,5 @@
     <gap:splash src="screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
     <gap:splash src="screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
-    
+    <access origin="http://differenz.co.in" subdomains="true" />
 </widget>

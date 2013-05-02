@@ -1,159 +1,39 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>R Wadiwala</title>
-    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
-    <link rel="stylesheet" href="style/main.css" />
-    <link rel="Stylesheet" href="style/MyRedTheme.css" />
-    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
-    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
-    <script src="scripts/Utility.js" type="text/javascript"></script>
-    
-    <script src="scripts/iscroll.js" type="text/javascript"></script>
-    
-    
-    <script language="javascript" type="text/javascript">
-        sessionStorage.R_Mobileapp_LastPageBrowsed = "ContactUs.html";
-        $(document).ready(function () {
-            centerScroll = new iScroll('XX', {
-                snap: true,
-                momentum: false,
-                hScrollbar: false
-            });
-        });
-
-        var myScroll;
-        function loaded() {
-
-            myScroll = new iScroll('wrapper', { snap: true, momentum: false, hScrollbar: false, vScrollbar: true });
-            myScroll.refresh();
-        }
-
-
-    </script>
-
-
-    <style type="text/css">
-        .ui-page
-        {
-            background: transparent url(style/images/bg_hor.png);
-        }
-        #XX
-        {
-            position: absolute;
-            z-index: 1;
-            top: 90px;
-            bottom: 40px;
-            left: 0;
-            width: 100%; /*background: #aaa;*/
-            overflow: auto;
-        }
-        
-        #scroller
-        {
-            position: absolute;
-            z-index: 1; /*	-webkit-touch-callout:none;*/
-            -webkit-tap-highlight-color: rgba(0,0,0,0);
-            width: 100%;
-            padding: 0;
-            
-        }
-        
-        #scroller ul
-        {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            text-align: left;
-        }
-        
-        #scroller li
-        {
-            padding: 0 10px; /*height: 40px;*/
-            font-size: 13px;
-            color: Black;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-        #header
-        {
-            color: white !important;
-            width: 100%;
-            height: 20px;
-            line-height: 20px;
-            padding: 0;
-            font-size: 18px;
-            text-align: center;
-            position: absolute;
-            z-index: 1;
-            top: 92px;
-            left: 0;
-            background-color:Gray;
-            border: solid 1px grey;
-        }
-    </style>
+    <title>Contact us</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.2.0.min.css" />
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.2.0.min.js" type="text/javascript"></script>
+    <link rel="Stylesheet" href="style/MyTheme.min.css" />
+    <link rel="Stylesheet" href="style/makememories.css" />
+    <script src="scripts/stoller.js" type="text/javascript"></script>
+    <script type="text/javascript" src="cordova-2.1.0.js"></script>
 </head>
 <body>
-
-    
-    <div data-role="page" data-theme="b">
-        <form id="frmRptSummary">
-        <div data-theme="a" data-role="header" data-position="fixed">
-            <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td style="width: 10%;text-align:left;padding-left:10px">
-                        <a href="#" onclick="Home();">
-                            <img src="style/images/house.png" height="20px" width="20px" alt="Home" />
-                        </a>
-                    </td>
-                    <td style="height: 42px; text-align: center; width: 80%">
-                        R. Wadiwala PMS
-                    </td>
-                    <td style="width: 10%; text-align: right;padding-right:10px">
-                        <a href="#" onclick="Logout();">
-                            <img src="style/images/logout.jpg" height="20px" width="20px" alt="Logout" />
-                        </a>
-                    </td>
-                    <td>&nbsp;</td>
-                </tr>
-            </table>
+    <div style="height: 20px">
+    </div>
+    <div data-role="page" data-theme="a">
+        <!--<div data-theme="" data-role="header" data-position="fixed"  class="hedertitlediv" >-->
+        <form id="Form2" method="post" action=" ">
+        <div style="height: 180px">
         </div>
-        <div  data-role="header" data-theme="b" data-position="fixed" style="background-color:Maroon">
-            <table style="padding-left:2px;padding-right:2px;font-weight:normal" width="100%" height="40px" cellpadding="0" cellspacing="0" border="0" >
-                <tr>
-                    <td style="text-align:center" >
-                        Contact Us  
-                    </td>
-                </tr>
-            </table>
+        <div class="contactUs" data-role="content">
+            <p>
+                <a href="mailto:logistics@stollercanada.com" style="text-decoration: none;" rel="external">logistics@stollercanada.com</a><br>
+                <a href="tel:+1-855-254-2376" style="text-decoration: none;" rel="external">Toll free 1-855-254-2376</a><br>
+                <a href="https://twitter.com/intent/user?screen_name=@stollerent" style="text-decoration: none;">
+                    Twitter: @stollerent</a><br>
+                <a href="http://www.stollercanada.com" style="text-decoration: none;">www.stollercanada.com</a>
+            </p>
         </div>
-        <div id="XX">
-                <div id="scroller">
-                    <ul id="xthelist">
-                        <li>
-                             <span style="font-size:small"><span style="font-size:large"><b>Our Corporate Office </b></span>
-                             <p>9/2003-4, Vishnu Priya</p>
-                             <p>Limda Chowk, Main Road</p>
-                              Surat – 395 003. 
-                              <p>Phone No: <a href="tel:+91-9898260000" style="text-decoration: none;">9898260000</a></p>
-                              <p>Fax  No: +91-261-6673537</p></span>
-                              <span style="font-size: 9pt">Email </span>: <a href="mailto:contact@rwadiwala.com "><font color="#B10000"><u>
-                              <span style="font-size: 9pt">contact@rwadiwala.com</span></u></font></a><br>&nbsp;
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </form>
-        <div data-theme="a" id="footerwrapper" data-role="footer" data-position="fixed" style="height: 35px;text-align:center"  >
-            <div style="height:10px"></div>
-            <div>
-                <span class="spn" onclick="ChangeClient();">Change Client</span>
-            </div>
+        <div style="margin-top:70px">
+            <a href="farm_app.html" rel="external" style="text-decoration:none">Back</a>
         </div>
     </div>
+   
 </body>
 </html>
-

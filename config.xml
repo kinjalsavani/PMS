@@ -3,10 +3,10 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "differenz.crimsonpalace"
         version   = "1.0.0">
-    <name>Crimson Papalce</name>
+    <name>Crimson Palace</name>
 
     <description>
-  Crimson Papalce
+  Crimson Palace
     </description>
 
     <author href="http://differenz.co.in" email="team@differenz.co.in">

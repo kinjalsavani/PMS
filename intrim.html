@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image view</title>
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    
+    <script src="scripts/jquerymobile120min.js" type="text/javascript"></script>
+    <link rel="Stylesheet" href="style/jquerymobile120min.css" />
+    <meta name="viewport"  content="width=device-width, height=device-height, minimum-scale=1, maximum-scale=4, initial-scale=1, user-scalable=0" />
+    <script src="scripts/sm.js" type="text/javascript"></script>
+    
+    <style type="text/css">
+        .ui-bar-a-right
+        {
+            border-right: 1px solid #2a2a2a;
+        }
+        .ui-content
+        {
+            border-width: 0;
+            overflow-x: visible;
+            overflow-y: visible;
+            padding: 15px;
+        }
+        body.ui-mobile-viewport, div.ui-mobile-viewport
+        {
+            overflow-x: visible;
+        }
+        
+        .modal 
+		{
+			text-align: center;
+    		position:   fixed;
+    		z-index:    1000;
+    		top:        0;
+    		left:       0;
+    		height:     100%;
+    		width:      100%;
+    		background: rgba( 255, 255, 255, .8 ) url('commonimages/pIkfp.gif') 50% 0% no-repeat;
+	}
+    </style>
+</head>
+<body scrollbars="all">
+    <div data-role="page">
+        <div data-role="content">
+            <div id="thelist">
+            	<div class="modal" id="dvProcessing">Loading...</div>
+            </div>
+        </div>
+    </div>
+    <script>
+    	var xpan = $(window).height() / 2;
+        document.getElementById("dvProcessing").setAttribute("style", "margin-top:" + xpan.toString() + "px");
+
+    
+        var CurrentPage, PageStatus, PageType, PageLabel, ProjectID, ProjectName, ImageName, ImageType;
+    
+    	setTimeout("javascript:Redirection();", 1500);
+    	
+    	function Redirection()
+    	{
+			$("#dvProcessing").show();
+    		var obj = JSON.parse(sessionStorage.getItem('page'));
+            $.each(obj, function () {
+                CurrentPage = this[0].CurrentPage
+                PageStatus = this[0].ProjectStatusID
+                PageType = this[0].ProjectTypeID
+                PageLabel = this[0].ProjectTypeName;
+                ProjectID = this[0].ProjectID;
+                ProjectName = this[0].ProjectName;
+                ImageName = this[0].ImageName;
+                ImageType = this[0].ImageType;
+            });
+    		
+    		if (ImageType =="")
+    			window.location.href = "index.html";
+        	else
+        		window.location.href = ImageType + ".html";
+	
+			$("#dvProcessing").hide();    	
+        }  
+		
+    </script>
+</body>
+</html>

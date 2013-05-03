@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Crimson Palace</title>
-    <meta name="viewport" content="width=device-width, , initial-scale=1, user-scalable=0" />
+    <meta name="viewport" content="width=device-width,  initial-scale=1, user-scalable=0" />
     <link rel="stylesheet" href="css/themes/jquery.mobile.min.css">
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery.mobile.min.js"></script>
@@ -14,8 +14,16 @@
             $('#bg').width(the_width + 'px');
             $('#bg').height(the_height + 'px');
             $('#IMAG').width(the_width + 'px');
-            $('#IMAG').height(the_height - 44 + 'px');
+            $('#IMAG').height(the_height - 20 + 'px');
         });
+        function fixiFrame() {
+            iFrameContentHeight = document.getElementById('theiFrame').contentDocument.body.offsetHeight;
+            document.getElementById('theiFrame').style.height = $(window).height() - 80 + 'px';
+        }
+        function onBackKeyDown() {
+            document.forms[0].action = 'index.html';
+            document.forms[0].submit();
+        }
     </script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -25,10 +33,16 @@
             <h1>
                 Crimson Palace</h1>
             <a href="#defaultpanel" data-inline="true" data-theme="f" class="menu_icon">
-                <img src="images/menu.png"></a>
+                <img src="images/menu.png"></a> <a href="index.html" onclick="javascript:onBackKeyDown();"
+                    rel="external" data-mini="true" data-theme="a" data-icon="arrow-l">Back</a>
         </div>
         <div data-role="content" id="bg">
-           <a href="#defaultpanel"><img src="images/bg.png" id="IMAG" ></a> </div>
+            <iframe width="100%" height="100%" scrolling="yes" frameborder="0" style="overflow-y: scroll;
+                overflow-x: scroll;" id="theiFrame" onload="fixiFrame();" src="http:differenz.co.in/Googlemap/loadaddress5.html">
+                <!--http:differenz.co.in/Googlemap/loadaddress5.html?add=Crimson Palace, Chikuwadi, Opp. Kothari Farm, New City Light Road, Althan, Surat&add1=Sargam Builders, Sargam house, Ghod Dod Road, Surat-->
+            </iframe>
+            <!-- <img src="images/google_map.png" id="IMAG">-->
+        </div>
         <!-- defaultpanel  -->
         <div data-role="panel" id="defaultpanel" data-theme="a">
             <ul data-role="listview" data-theme="a" data-divider-theme="d" data-icon="false"

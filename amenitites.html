@@ -2,20 +2,66 @@
 <html>
 <head>
     <title>Crimson Palace</title>
-    <meta name="viewport" content="width=device-width, , initial-scale=1, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.5, user-scalable=0" />
     <link rel="stylesheet" href="css/themes/jquery.mobile.min.css">
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" />
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery.mobile.min.js"></script>
+    <script src="js/iscroll.js"></script>
     <script type="text/javascript">
         var the_height, the_width;
         $(document).ready(function () {
             the_width = $(window).width();
-            the_height = $(window).height();
+            the_height = $(window).height() - 42;
+            var numberElements = $('#scroller').find('ul').find('li').length;
+            var widthScroller = numberElements * the_width;
             $('#bg').width(the_width + 'px');
             $('#bg').height(the_height + 'px');
+            $('#wrapper').width(the_width + 'px');
+            $('#wrapper').height(the_height + 'px');
             $('#IMAG').width(the_width + 'px');
-            $('#IMAG').height(the_height - 44 + 'px');
+            $('#IMAG').height(the_height + 'px');
+            $('#IMAG2').width(the_width + 'px');
+            $('#IMAG2').height(the_height + 'px');
+            $('#IMAG3').width(the_width + 'px');
+            $('#IMAG3').height(the_height + 'px');
+            $('#IMAG4').width(the_width + 'px');
+            $('#IMAG4').height(the_height + 'px');
+            $('#IMAG5').width(the_width + 'px');
+            $('#IMAG5').height(the_height + 'px');
+            $('#IMAG6').width(the_width + 'px');
+            $('#IMAG6').height(the_height + 'px');
+            $('#scroller').width(widthScroller + 'px');
+            $('#scroller').height(the_height + 'px');
+            $('#scroller').find('ul').height(the_height + 'px');
+            $('#scroller').find('ul').find('li').width(widthElement + '%');
+            $('#scroller').find('ul').find('li').height(the_height + 'px');
+
+
         });
+        var myScroll;
+
+        function loaded() {
+            myScroll = new iScroll('wrapper', {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    document.querySelector('#indicator > li.active').className = '';
+                    document.querySelector('#indicator > li:nth-child(' + (this.currPageX + 1) + ')').className = 'active';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loaded, false);
+
+
+
+        function onBackKeyDown() {
+            document.forms[0].action = 'index.html';
+            document.forms[0].submit();
+        }
+
     </script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -23,12 +69,44 @@
     <div data-role="page" id="panel-fixed-page1">
         <div data-role="header">
             <h1>
-                Crimson Palace</h1>
+                Crimson Palace
+            </h1>
             <a href="#defaultpanel" data-inline="true" data-theme="f" class="menu_icon">
-                <img src="images/menu.png"></a>
+                <img src="images/menu.png"></a> <a href="index.html" onclick="javascript:onBackKeyDown();"
+                    rel="external" data-mini="true" data-theme="a" data-icon="arrow-l">Back</a>
         </div>
         <div data-role="content" id="bg">
-           <a href="#defaultpanel"><img src="images/bg.png" id="IMAG" ></a> </div>
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul id="thelist">
+                        <li>
+                            <img src="images/garden.jpg" id="IMAG" />
+                        </li>
+                        <li>
+                            <img src="images/yoga.jpg" id="IMAG2" />
+                        </li>
+                        <li>
+                            <img src="images/ampi.jpg" id="IMAG3" />
+                        </li>
+                        <li>
+                            <img src="images/morden.jpg" id="IMAG4" />
+                        </li>
+                        <li>
+                            <img src="images/fountain.jpg" id="IMAG5" />
+                        </li>
+                        <li>
+                            <img src="images/wallyball.png" id="IMAG6" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="nav" style="margin-top:-90px">
+                <div id="prev" onclick="myScroll.scrollToPage('prev', 0);return false">
+                    <img src="images/btn_back.png"></div>
+                <div id="next" onclick="myScroll.scrollToPage('next', 0);return false">
+                    <img src="images/btn_next.png"></div>
+            </div>
+        </div>
         <!-- defaultpanel  -->
         <div data-role="panel" id="defaultpanel" data-theme="a">
             <ul data-role="listview" data-theme="a" data-divider-theme="d" data-icon="false"

@@ -1,102 +1,20 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Crimson Palace</title>
-    <meta name="viewport" content="width=device-width, , initial-scale=1, user-scalable=0" />
-    <link rel="stylesheet" href="css/themes/jquery.mobile.min.css">
-    <script src="js/jquery-1.9.1.min.js"></script>
-    <script src="js/jquery.mobile.min.js"></script>
-    <script type="text/javascript">
-        var the_height, the_width;
-        $(document).ready(function () {
-            the_width = $(window).width();
-            the_height = $(window).height();
-            $('#bg').width(the_width + 'px');
-            $('#bg').height(the_height + 'px');
-            $('#IMAG').width(the_width + 'px');
-            $('#IMAG').height(the_height - 44 + 'px');
-        });
-    </script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Stoller Enterprises Limited</title>
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="style/jquery.mobile-1.2.0.min.css" />
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.2.0.min.js" type="text/javascript"></script>
+    <link rel="Stylesheet" href="style/MyTheme1.min.css" />
+    <script type="text/javascript" src="cordova-2.1.0.js"></script>
 </head>
-<body>
-    <div data-role="page" id="panel-fixed-page1">
-        <div data-role="header">
-            <h1>
-                Crimson Palace</h1>
-            <a href="#defaultpanel" data-inline="true" data-theme="f" class="menu_icon">
-                <img src="images/menu.png"></a>
+<a href="home.html" rel="external">
+    <body>
+        ​
+        <div data-role="page" data-theme="a" style="margin-top: 0px">
         </div>
-        <div data-role="content" id="bg">
-           <a href="#defaultpanel"><img src="images/bg.png" id="IMAG" ></a> </div>
-        <!-- defaultpanel  -->
-        <div data-role="panel" id="defaultpanel" data-theme="a">
-            <ul data-role="listview" data-theme="a" data-divider-theme="d" data-icon="false"
-                data-global-nav="docs" class="jqm-list ui-listview  menu">
-                <li class="menu-title">Crimson Palace</li>
-                <li><a href="key_plan.html" class="keyplan ui-link-inherit" data-transition="flow"
-                    rel="external">&nbsp;&nbsp;Key Plan / Location </a></li>
-                <li><a href="amenitites.html" class="valuable ui-link-inherit" rel="external">&nbsp;&nbsp;Valuable
-                    Amenities</a></li>
-                <li><a href="plan.html" class="floor_plan ui-link-inherit" data-transition="flow"
-                    rel="external">&nbsp;&nbsp;Floor Plan </a></li>
-                <li><a href="gallery.html" class="gallery ui-link-inherit" data-transition="flow"
-                    rel="external">&nbsp;&nbsp;Photo gallery</a></li>
-                <!-- <li><a href="images/LJ1010UG.pdf" class="download_pdf ui-link-inherit" data-transition="flow"
-                    rel="external">&nbsp;&nbsp;Download (PDF) </a></li>-->
-                <li><a href="special_feature.html" class="special ui-link-inherit" data-transition="flow"
-                    rel="external">&nbsp;&nbsp;Special Features</a></li>
-                <li><a href="apointment.html" class="appointment ui-link-inherit" data-transition="flow"
-                    rel="external">&nbsp;&nbsp;Appointment</a></li>
-                <li><a href="contact.html" class="contact ui-link-inherit" data-transition="flow"
-                    rel="external">&nbsp;&nbsp;Contact Us</a></li>
-                <li><a href="map.html" class="map ui-link-inherit" data-transition="flow" rel="external">
-                    &nbsp;&nbsp;Google Map</a></li>
-            </ul>
-            <!-- /content wrapper for padding -->
-        </div>
-        <!-- /defaultpanel -->
-    </div>
-    <!--<div data-role="page" id="panel-fixed-page2">
-          <div data-role="header">
-    <h1>Crimson Palace</h1>
-    <a href="#defaultpanel" data-role="button" data-icon="bars" data-iconpos="notext" data-theme="c" data-inline="true" class="ui-icon-alt" >Bars</a> </div>
-          <div data-role="content" class="bg">
-    <div class = 'iosSlider'>
-              <div class = 'slider'>
-        <div class = 'item' >
-                  <div><img src="images/garden.jpg"></div>
-                  <div class="slide_icon"><img src="images/icn_garden.png" ></div>
-                  <div class="slide_text">Beautifully Contoured Landscaped Gardens with comfortable sitouts </div>
-                </div>
-        <div class = 'item' >
-                  <div><img src="images/yoga.jpg"></div>
-                  <div class="slide_icon"><img src="images/icn_yoga.png" ></div>
-                  <div class="slide_text">Yoga Meditation Area </div>
-                </div>
-        <div class = 'item' >
-                  <div><img src="images/ampi.jpg"></div>
-                  <div class="slide_icon"><img src="images/icn_ampi.png" ></div>
-                  <div class="slide_text">Amphitheater </div>
-                </div>
-        <div class = 'item' >
-                  <div><img src="images/morden.jpg"></div>
-                  <div class="slide_icon"><img src="images/icn_interior.png" ></div>
-                  <div class="slide_text">Aesthetically designed features and ultra modern faced define a new style statement </div>
-                </div>
-        <div class = 'item' >
-                  <div><img src="images/fountain.jpg"></div>
-                  <div class="slide_icon"><img src="images/icn_fountain.png" ></div>
-                  <div class="slide_text">Fountain / water body </div>
-                </div>
-        <div class = 'item' >
-                  <div><img src="images/wallyball.jpg"></div>
-                  <div class="slide_icon"><img src="images/icn_vollyball.png" ></div>
-                  <div class="slide_text">Volleyball court</div>
-                </div>
-      </div>
-            </div>
-  </div>
-        </div>-->
-</body>
+    </body>
+</a>
 </html>

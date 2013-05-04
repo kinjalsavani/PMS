@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "differenz.cm"
+        id        = "developer.verisearch"
         version   = "1.0.0">
-    <name>Crimson Palace</name>
+    <name>Verisearch</name>
 
     <description>
-Sargam Developers is a reputed developer in Surat. Through this application you can get to know their latest project (Crimson Palace), view details like valuable amenities, special facilities,floor plan and even book a priority appointment with our dedicated sales team. A feature rich application that brings to the Indian real estate buyer - a World class experience.
+Verisearch
     </description>
 
     <author href="http://differenz.co.in" email="team@differenz.co.in">

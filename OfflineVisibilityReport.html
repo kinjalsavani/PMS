@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
+    <title>VeriSearch</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="Stylesheet" href="style/MyRedTheme.css" />
+    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+    <script src="scripts/Utility.js" type="text/javascript"></script>
+    <script type="text/javascript" src="cordova-2.1.0.js"></script>
+    <script language="javascript" type="text/javascript">
+
+        $(document).ready(function () {
+            $("#Scrollablediv").css("height", window.innerHeight - 117);
+            var ToEmail = document.getElementById('ToEmail');
+
+            if (localStorage.getItem("ToEmailId") != '' || localStorage.getItem("ToEmailId") != null) {
+
+                ToEmail.value = localStorage.getItem("ToEmailId");
+            }
+            //$("#Scrollablediv").css("overflow", "hidden");
+
+            // fixiFrame();
+        });
+        //        function fixiFrame() {
+        //            document.getElementById('frame').style.height = ((-$(window).height() / 100) + 100) + 45 + '%';
+        //                        document.getElementById('frame').style.width = ((-$(window).width() / 100) + 100) + 55 + '%';  
+        ////            document.getElementById('frame').style.height = $(window).height() +84  +'px' ;
+        ////            document.getElementById('frame').style.width = ( $(window).width() / 100) + 100) + 55 + '%';           
+        //        }
+        function validate() {
+            var msg = document.getElementById('lblMessage');
+            var FirstName = document.getElementById('FirstName');
+            var Phone1 = document.getElementById('Phone1');
+            var Email = document.getElementById('Email');
+            var Company = document.getElementById('Company');
+            var Phone2 = document.getElementById('Phone2');
+            var Address2Street1 = document.getElementById('Address2Street1');
+            var City2 = document.getElementById('City2');
+            var State2 = document.getElementById('State2');
+            var PostalCode2 = document.getElementById('PostalCode2');
+            var AdditionalNotes = document.getElementById('AdditionalNotes');
+            var ToEmail = document.getElementById('ToEmail');
+
+            if (FirstName.value == "") {
+                msg.innerHTML = "Please Enter First Name";
+                FirstName.focus();
+                return false;
+            }
+
+            if (Phone1.value == null || Phone1.value == "") {
+                msg.innerHTML = "Phone no. cannot be left blank";
+                Phone1.focus();
+                return false;
+            }
+
+            if (isNaN(Phone1.value) || Phone1.value.indexOf(" ") != -1) {
+                msg.innerHTML = "Enter numeric value";
+                Phone1.focus();
+                return false;
+            }
+
+            if (Email.value == "") {
+                msg.innerHTML = "Please Enter Email Id";
+                Email.focus();
+                return false;
+            } else {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (!re.test(Email.value)) {
+                    msg.innerHTML = "Please provide a valid email address";
+                    Email.focus();
+                    return false;
+                }
+            }
+
+
+            if (Company.value == "") {
+                msg.innerHTML = "Please Enter Business Name";
+                Company.focus();
+                return false;
+            }
+
+            if (Phone2.value == null || Phone2.value == "") {
+                msg.innerHTML = "Phone no. cannot be left blank";
+                Phone2.focus();
+                return false;
+            }
+
+            if (isNaN(Phone2.value) || Phone2.value.indexOf(" ") != -1) {
+                msg.innerHTML = "Enter numeric value";
+                Phone2.focus();
+                return false;
+            }
+
+            if (Address2Street1.value == "") {
+                msg.innerHTML = "Please Enter Address";
+                Address2Street1.focus();
+                return false;
+            }
+
+            if (City2.value == "") {
+                msg.innerHTML = "Please Enter City Name";
+                City2.focus();
+                return false;
+            }
+
+            if (State2.value == "") {
+                msg.innerHTML = "Please Enter State Name";
+                State2.focus();
+                return false;
+            }
+            if (PostalCode2.value == "") {
+                msg.innerHTML = "Please Enter PostalCode";
+                PostalCode2.focus();
+                return false;
+            }
+
+            if (AdditionalNotes.value == "") {
+                msg.innerHTML = "Please Enter Additional Notes";
+                AdditionalNotes.focus();
+                return false;
+            }
+            if (ToEmail.value == "") {
+                msg.innerHTML = "Please Enter To Email Id";
+                ToEmail.focus();
+                return false;
+            } else {
+                var re1 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (!re1.test(ToEmail.value)) {
+                    msg.innerHTML = "Please provide a valid email address";
+                    ToEmail.focus();
+                    return false;
+                }
+            }
+
+
+            if (FirstName != "" && Phone1 != "" && Email != "" && ToEmail != "" && Company != "" && Phone2 != "" && Address2Street1 != "" && City2 != "" && State2 != "" && PostalCode2 != "" && AdditionalNotes != "") {
+                msg.innerHTML = "";
+                FirstName.value = "";
+                Phone1.value = "";
+                Email.value = "";
+                ToEmail.value = "";
+                Company.value = "";
+                Phone2.value = "";
+                Address2Street1.value = "";
+                City2.value = "";
+                State2.value = "";
+                PostalCode2.value = "";
+                AdditionalNotes.value = "";
+                return true;
+            }
+        }
+
+    </script>
+    <style type="text/css">
+        *
+        {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        
+        #frames
+        {
+            -moz-transform: scale(0.65, 0.65);
+            -webkit-transform: scale(0.65, 0.65);
+            -o-transform: scale(0.65, 0.65);
+            -ms-transform: scale(0.65, 0.65);
+            transform: scale(0.65, 0.65);
+            -moz-transform-origin: top left;
+            -webkit-transform-origin: top left;
+            -o-transform-origin: top left;
+            -ms-transform-origin: top left;
+            transform-origin: top left;
+        }
+    </style>
+    <style type="text/css">
+        .spn
+        {
+            cursor: pointer;
+        }
+        .ui-page
+        {
+        }
+    </style>
+</head>
+<body onload="init();">
+    <div data-role="page" data-theme="a" style="vertical-align: middle;">
+        <div data-theme="a" data-role="header" data-position="fixed">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" class="headerback">
+                <tr>
+                    <td style="width: 10%; text-align: left; padding-left: 10px">
+                        <a href="#" onclick="Home();">
+                            <img src="style/images/house.png" height="20px" width="20px" alt="Home" />
+                        </a>
+                    </td>
+                    <td style="width: 10%">
+                    </td>
+                    <td style="height: 42px; text-align: center; width: 80%">
+                        <img src="images/logo.png" height="42px" alt="logo" />
+                    </td>
+                    <td style="width: 10%; text-align: right; padding-right: 10px">
+                        <!-- <a href="#" onclick="Logout();">
+                            <img src="style/images/logout.jpg" height="20px" width="20px" alt="Logout" />
+                        </a>-->
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form id="offlinevisibilityfrm" method="post" action="http://memories.jsmhosting.com/sendmail.php">
+        <div id="Scrollablediv" data-role="content">
+            <div class="heading">
+                Offline Visibility Report</div>
+            <center>
+                <label id="lblMessage" style="text-align: center; font-weight: bold; color: red">
+                </label>
+            </center>
+            <div data-role="fieldcontain">
+                <label for="FirstName">
+                    Your Name <span style="color: Red">*</span></label>
+                <input type="text" name="FirstName" id="FirstName" value="" data-mini="true" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="Phone1">
+                    Your Phone <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="Phone1" name="Phone1" data-mini="true"
+                    type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="Email">
+                    Email <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="Email" name="Email" data-mini="true"
+                    type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="Company">
+                    Business Name <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="Company" name="Company" data-mini="true"
+                    type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="Phone2">
+                    Business Phone <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="Phone2" name="Phone2" data-mini="true"
+                    type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="Address2Street1">
+                    Business Address <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="Address2Street1" name="Address2Street1"
+                    data-mini="true" type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="City2">
+                    City <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="City2" name="City2" data-mini="true"
+                    type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="State2">
+                    State <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="State2" name="State2" data-mini="true"
+                    type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="PostalCode2">
+                    Postal Code <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="PostalCode2" name="PostalCode2"
+                    data-mini="true" type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="AdditionalNotes">
+                    Spoke With? <span style="color: Red">*</span></label>
+                <textarea cols="24" id="AdditionalNotes" name="AdditionalNotes" rows="5"></textarea>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="ToEmail">
+                    To Email <span style="color: Red">*</span></label>
+                <input class="infusion-field-input-container" id="ToEmail" name="ToEmail" data-mini="true"
+                    type="text" />
+            </div>
+            <!-- <div data-role="button">-->
+            <input type="submit" data-role="button" data-inline="true" data-theme="c" value="Submit"
+                name="buttonSubmit" value="submit" onclick="javascript:return validate()">
+            <!--  </div>-->
+        </div>
+        </form>
+        <div data-theme="a" id="footerwrapper" data-role="footer" style="height: 35px; text-align: center;">
+            <div style="font-size: 11px; text-align: center; padding-top: 8px;">
+                Copyright © 2013 VeriSearchLocal.com All Rights Reserved.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
+    <title>VeriSearch</title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="Stylesheet" href="style/MyRedTheme.css" />
+    <script src="scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+    <script src="scripts/Utility.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+
+        $(document).ready(function () {
+            $("#Scrollablediv").css("height", window.innerHeight - 117);
+            $("#Scrollablediv").css("overflow", "scroll");
+            $('#innerinfograph').hide();
+            $('#innerBenifitsHandout').hide();
+            if (sessionStorage.LocalSearchState == "BenifitHandout")
+            { clickBenifitHandout(); }
+            if (sessionStorage.LocalSearchState == "InfoGraph")
+            { clickinfoGraph(); }
+        });
+        
+    </script>
+    <style type="text/css">
+        *
+        {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+    <style type="text/css">
+        .spn
+        {
+            cursor: pointer;
+        }
+        .ui-page
+        {
+        }
+    </style>
+</head>
+<body onload="init();">
+    <div data-role="page" data-theme="a" style="vertical-align: middle;">
+        <div data-theme="a" data-role="header" data-position="fixed">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" class="headerback">
+                <tr>
+                    <td style="width: 10%; text-align: left; padding-left: 10px">
+                        <a href="#" onclick="Home();">
+                            <img src="style/images/house.png" height="20px" width="20px" alt="Home" />
+                        </a>
+                    </td>
+                    <td style="width: 10%">
+                    </td>
+                    <td style="height: 42px; text-align: center; width: 80%">
+                        <img src="images/logo.png" height="42px" alt="logo" />
+                    </td>
+                    <td style="width: 10%; text-align: right; padding-right: 10px">
+                        <!-- <a href="#" onclick="Logout();">
+                            <img src="style/images/logout.jpg" height="20px" width="20px" alt="Logout" />
+                        </a>-->
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form id="reportOptions" method="post">
+        <!--<div style="height:1px"></div>-->
+        <div id="Scrollablediv" data-role="content">
+            <div class="heading">
+                Local Search Statistics</div>
+            <!--<ul id="ListViewWidth"  style = "padding-bottom:2px;" data-role="listview"  data-inset="true" data-theme="c" data-dividertheme="f" >-->
+            <ul id="ListViewWidth" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"
+                style="padding: 1px;">
+                <li id="infograph" onclick="javascript:clickinfoGraph();"><a href="#">
+                    <h1 class="wrapword">
+                        Infographics</h1>
+                </a></li>
+                <ul id="innerinfograph" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"
+                    style="margin: 10px 10px 10px 10px;">
+                    <li onclick="javascript:pageredirect('VeriSearchReviews-4.jpg','How To Boost Revenue with Reviews');">
+                        <a href="#">
+                            <h1 class="wrapword">
+                                How To Boost Revenue with Reviews
+                            </h1>
+                        </a></li>
+                    <li onclick="javascript:pageredirect('All-My-Files-2.jpg',' How Social Signals Affect Business');">
+                        <a href="#">
+                            <h1 class="wrapword">
+                                How Social Signals Affect Business</h1>
+                        </a></li>
+                    <li onclick="javascript:pageredirect('VeriSearchMobile-1.jpg','Local Search Via Mobile Devices');">
+                        <a href="#">
+                            <h1 class="wrapword">
+                                Local Search Via Mobile Devices</h1>
+                        </a></li>
+                    <li onclick="javascript:pageredirect('gpplus.jpg',' Google Plus For Small Businesses');">
+                        <a href="#">
+                            <h1 class="wrapword">
+                                Google Plus For Small Businesses</h1>
+                        </a></li>
+                </ul>
+                <li id="BenifitHandout" onclick="javascript:clickBenifitHandout();"><a href="#">
+                    <h1 class="wrapword">
+                        Main Benefits Of VeriSearch</h1>
+                </a></li>
+                <ul id="innerBenifitsHandout" data-role="listview" data-inset="true" data-theme="c"
+                    data-dividertheme="f" style="margin: 10px 10px 10px 10px;">
+                    <li onclick="javascript:pageredirect('VeriSearchFlyerV3.png','VeriSearch Flyer Handout');">
+                        <a href="#">
+                            <h1 class="wrapword">
+                                Major Benefits Of VeriSearch</h1>
+                        </a></li>
+                    <li onclick="javascript:pageredirect('VeriSearchFlyerNewBusiness.png','New Business Benefits');">
+                        <a href="#">
+                            <h1 class="wrapword">
+                                New Business Benefits</h1>
+                        </a></li>
+                    <!--      <li onclick="javascript:pageredirect('OfferSheet.jpg','VeriSearch Packages Description Form');"><a href="#">
+                        <h1 class="wrapword">
+                            VeriSearch Packages Description Form</h1>
+                    </a></li>
+                    <li onclick="javascript:pageredirect('BusinessAnalysisForm.jpg','VeriSearch Business Analysis Request Form');"><a href="#">
+                        <h1 class="wrapword">
+                            VeriSearch Business Analysis Request Form</h1>
+                    </a></li>-->
+                    <li onclick="javascript:pageredirect('VeriSearchBenefitsFlyer2.jpg','Top 5 Reasons To Use VeriSearch');">
+                        <a href="#">
+                            <h1 class="wrapword">
+                                Top 5 Reasons To Use VeriSearch</h1>
+                        </a></li>
+                    <!--<li onclick="javascript:pageredirect('brochure-trifold-inside.jpg','VeriSearch Trifold Handout (Inside of Trifold)');"><a href="#">
+                        <h1 class="wrapword">
+                            VeriSearch Trifold Handout (Inside of Trifold)</h1>
+                    </a></li>
+                    <li onclick="javascript:pageredirect('Approved-Sales-Materials.jpg','This is the second part and will is required to complete the trifold (Outside of Trifold)');" ><a href="#">
+                        <h1 class="wrapword">
+                            This is the second part and will is required to complete the trifold (Outside of
+                            Trifold)</h1>
+                    </a></li>-->
+                </ul>
+            </ul>
+        </div>
+        </form>
+        <div data-theme="a" id="footerwrapper" data-role="footer" style="height: 35px; text-align: center;">
+            <div style="font-size: 11px; text-align: center; padding-top: 8px;">
+                Copyright © 2013 VeriSearchLocal.com All Rights Reserved.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

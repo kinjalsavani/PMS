@@ -1,0 +1,172 @@
+﻿
+.txtGray
+{
+    text-decoration: none;
+    font-style: normal;
+    color: black;
+    text-align: center;
+    font-size: small;
+    font-weight: normal;
+}
+
+.txtWhite
+{
+    text-decoration: none;
+    color: White;
+    text-align: center;
+    font-size: small;
+    font-weight: normal;
+}
+
+#dvFooter
+{
+    position: absolute;
+    bottom: 0px;
+    text-align: right;
+    width: 100%;
+    font-size: small;
+}
+.txtReportFont
+{
+    text-decoration: none;
+    text-align: center;
+    font-size: medium;
+    font-weight: normal;
+    color: #40A8BA;
+}
+
+.txtReportSubheaderFont
+{
+    text-decoration: none;
+    text-align: center;
+    font-size: medium;
+    font-weight: normal;
+    color: white;
+    font-style: italic;
+}
+
+.firstrow
+{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    height: 35px;
+    background-color: #ed1c24;
+    color: White;
+}
+
+.modal
+{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba( 255, 255, 255, .8 ) url('images/pIkfp.gif') 50% 50% no-repeat;
+}
+.ui-li div a
+{
+    overflow: visible !important;
+    white-space: normal !important;
+    font-size: small;
+}
+
+.headerback
+{
+    background-color: #FFFFFF;
+    border: 1px solid #BFBEBE; /* background-image: -webkit-radial-gradient(center bottom, circle closest-corner, #a4a3a2 0%, #f2f2f2 100%);      background-image: -o-radial-gradient(center bottom, circle closest-corner, #a4a3a2 0%, #f2f2f2 100%);      background-image: -ms-radial-gradient(center bottom, circle closest-corner, #a4a3a2 0%, #f2f2f2 100%);      background-image: -moz-radial-gradient(center bottom, circle closest-corner, #a4a3a2 0%, #f2f2f2 100%);*/
+}
+
+.firstdiv
+{
+    padding-top: 42px;
+    padding-bottom: 7px;
+}
+
+.otherdiv
+{
+    padding-top: 5px;
+    padding-bottom: 7px;
+}
+
+.displaymiddle
+{
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+.heading
+{
+    background-color: #79BC3C;
+    min-height: 30px;
+    font-size: 16px;
+    color: White;
+    font-weight: bold;
+    vertical-align: middle;
+    padding-top: 10px;
+    font-family: Arial;
+    width: 100%;
+    text-align: center;
+}
+
+.footerleft
+{
+    width: 50%;
+    float: right;
+    cursor: pointer;
+    padding-top: 10px;
+}
+
+.footerright
+{
+    width: 50%;
+    cursor: pointer;
+    padding-top: 10px;
+}
+.footercenter
+{
+    border-right: 2px solid white;
+    float: right;
+    height: 42px;
+}
+.footernormal
+{
+    height: 35px;
+    text-align: center;
+}
+
+.wrapword
+{
+    white-space: normal;
+  
+}
+.modal
+{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba( 255, 255, 255, .8 ) url('images/pIkfp.gif') 50% 50% no-repeat;
+}
+/*  Div Make content in center start*/
+.divMain
+{
+    display: table;
+    width: 100%;   
+    vertical-align: middle;
+    border:0px;
+    padding:0px;
+}
+
+.ulinner
+{
+    display: table-cell;
+    width: 100%;   
+    vertical-align: middle;
+    text-align: center;
+    padding:10px;
+}
+/*  Div Make content in center END */
